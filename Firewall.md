@@ -42,11 +42,11 @@ Với:
 ### 2.3 Setup cho dịch vụ mDNS
 Đối với dịch vụ mDNS qua `avahi-daemon`, bạn cần cho phép cổng `5353` và địa chỉ multicast với cùng cổng `5353`.
 ````
-sudo iptables -A INPUT -p tcp --dport 5353 -j ACCEPT
-sudo iptables -A INPUT -p tcp --dport 5353 -d 224.0.0.251 -j ACCEPT
+sudo iptables -A INPUT -p udp --dport 5353 -j ACCEPT
+sudo iptables -A INPUT -p udp --dport 5353 -d 224.0.0.251 -j ACCEPT
 
-sudo ip6tables -A INPUT -p tcp --dport 5353 -j ACCEPT
-sudo ip6tables -A INPUT -p tcp --dport 5353 -d ff02::fb -j ACCEPT
+sudo ip6tables -A INPUT -p udp --dport 5353 -j ACCEPT
+sudo ip6tables -A INPUT -p udp --dport 5353 -d ff02::fb -j ACCEPT
 ````
 
 ## 3. Setup rule trên chain
