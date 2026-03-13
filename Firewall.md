@@ -18,7 +18,12 @@ Setup sẽ thực hiện trên cả `iptables` và `ip6tables`
 
 ### 2.1 Setup cho các kết nối cần thiết
 Để server có thể thực hiện các hoạt động cơ bản (ping ra bên ngoài, tải package, ...), bạn cần setup cho firewall cho phép.<br>
-Các kết nối có trạng thái `ESTABLISHED`,`RELATED` sẽ được firewall cho phép.
++ Setup cho `lo` interface
+````
+sudo iptables -A INPUT -i lo -j ACCEPT
+sudo ip6tables -A INPUT -i lo -j ACCEPT
+````
++ Các kết nối có trạng thái `ESTABLISHED`,`RELATED` sẽ được firewall cho phép.
 ````
 sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 sudo ip6tables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
