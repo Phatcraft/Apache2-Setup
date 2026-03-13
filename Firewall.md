@@ -45,6 +45,17 @@ sudo iptables -A INPUT -p udp --dport 5353 -j ACCEPT && sudo iptables -A INPUT -
 sudo ip6tables -A INPUT -p udp --dport 5353 -j ACCEPT && sudo ip6tables -A INPUT -p udp --dport 5353 -d ff02::fb -j ACCEPT
 ````
 
+### 2.4 Setup IPv6 
+Do IPv6 cần ICMPv6 để cấp IP nên cần cho phép 1 số rule cần thiết để đảm bảo IPv6 vẫn được cấp và vẫn chặn được ping từ IPv6
+````
+sudo ip6tables -A INPUT -p ipv6-icmp --icmpv6-type router-advertisement -j ACCEPT
+sudo ip6tables -A INPUT -p ipv6-icmp --icmpv6-type neighbor-solicitation -j ACCEPT
+sudo ip6tables -A INPUT -p ipv6-icmp --icmpv6-type neighbor-advertisement -j ACCEPT
+sudo ip6tables -A INPUT -p ipv6-icmp --icmpv6-type packet-too-big -j ACCEPT
+sudo ip6tables -A INPUT -p ipv6-icmp --icmpv6-type time-exceeded -j ACCEPT
+sudo ip6tables -A INPUT -p ipv6-icmp --icmpv6-type parameter-problem -j ACCEPT
+````
+
 ## 3. Setup rule trên chain
 Sau khi setup xong các rule, bạn cần chặn các kết nối ngoài rule trên chain `INPUT` và `FORWARD` về `DROP`.<br>
 Chain `OUTPUT` không cần phải thay đổi
