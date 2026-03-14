@@ -1,8 +1,9 @@
 # Apache Security
- ### + 1. Ẩn tên server tại `apache2.conf`
+ ### + 1. Ẩn tên server & Etag tại `apache2.conf`
 ````
 ServerTokens Prod
 ServerSignature Off
+FileETag none
 ````
 
  ### + 2. Setup Header
